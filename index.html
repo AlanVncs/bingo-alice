@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Bingo da Alice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #fffaf0;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #e91e63;
+    }
+    .bingo-card {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+    .cell {
+      padding: 15px;
+      border: 2px solid #e91e63;
+      border-radius: 10px;
+      background-color: #ffe4ec;
+      font-weight: bold;
+      cursor: pointer;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .cell.marked {
+      background-color: #e91e63;
+      color: white;
+    }
+    .cell.free {
+      background-color: #e91e63;
+      color: white;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bingo da Alice</h1>
+  <div class="bingo-card" id="bingoCard"></div>
+
+  <script>
+    const termos = [
+      "Gordofobia",
+      "Xenofobia",
+      "Machismo",
+      "Homofobia",
+      "Capacitismo",
+      "Racismo",
+      "Etarismo",
+      "Misoginia",
+      "Transfobia",
+      "LGBTfobia",
+      "Classismo",
+      "Apropriação cultural",
+      "Sexismo",
+      "Preconceito linguístico",
+      "Negritude como xingamento",
+      "Estereótipos de gênero",
+      "Desumanização",
+      "Cegueira social",
+      "Colonialismo",
+      "Colorismo",
+      "Silenciamento",
+      "Cultura do estupro",
+      "“É só piada”",
+      "“Não tem racismo no Brasil”",
+      "“Na minha época...”"
+    ];
+
+    const bingoCard = document.getElementById('bingoCard');
+
+    // Embaralha os termos
+    const embaralhados = termos.sort(() => Math.random() - 0.5);
+
+    // Insere 25 células com centro "LIVRE"
+    for (let i = 0; i < 25; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+
+      if (i === 12) {
+        cell.textContent = 'ALICE';
+        cell.classList.add('free', 'marked');
+      } else {
+        const termo = embaralhados.pop();
+        cell.textContent = termo;
+        cell.addEventListener('click', () => {
+          cell.classList.toggle('marked');
+        });
+      }
+
+      bingoCard.appendChild(cell);
+    }
+  </script>
+</body>
+</html>
